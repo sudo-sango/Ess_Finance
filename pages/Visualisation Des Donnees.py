@@ -268,11 +268,6 @@ def get_csv_files():
             csv_files.append(file)
     return csv_files
 
-
-def load_data(file_path):
-    return pd.read_csv(file_path)
-
-
 def process_data(data, selected_column, start_date, end_date):
     # Logique de traitement des données
     filtered_data = data  # Exemple: données non traitées
