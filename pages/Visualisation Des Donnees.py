@@ -261,6 +261,23 @@ def process_data(selected_data, selected_column, start_date, end_date):
     filtered_data = selected_data.loc[(selected_data.index >= start_date) & (selected_data.index <= end_date)]
     return filtered_data
 
+def get_csv_files():
+    csv_files = []
+    for file in os.listdir():
+        if file.endswith('.csv'):
+            csv_files.append(file)
+    return csv_files
+
+
+def load_data(file_path):
+    return pd.read_csv(file_path)
+
+
+def process_data(data, selected_column, start_date, end_date):
+    # Logique de traitement des données
+    filtered_data = data  # Exemple: données non traitées
+    return filtered_data
+
 
 
 ######################## #####################################################################################################################################################################################################################################################
@@ -286,23 +303,6 @@ def main():
 
     display_closing_prices(filtered_data)
 
-
-def get_csv_files():
-    csv_files = []
-    for file in os.listdir():
-        if file.endswith('.csv'):
-            csv_files.append(file)
-    return csv_files
-
-
-def load_data(file_path):
-    return pd.read_csv(file_path)
-
-
-def process_data(data, selected_column, start_date, end_date):
-    # Logique de traitement des données
-    filtered_data = data  # Exemple: données non traitées
-    return filtered_data
 
 
 ######################## #####################################################################################################################################################################################################################################################
