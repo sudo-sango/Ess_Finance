@@ -12,6 +12,9 @@ import plotly.graph_objects as go
 import io
 import base64
 import streamlit as st
+import os
+import pandas as pd
+import streamlit as st
 #from fpdf import FPDF
 #from PyPDF2 import PdfMerger
 
@@ -261,27 +264,19 @@ def process_data(selected_data, selected_column, start_date, end_date):
 
 
 ######################## #####################################################################################################################################################################################################################################################
-
-
-
-# Fonction principale pour l'interface utilisateur
 def main():
-    #st.title('Analyse des Cours de Clôture')
-    
-     
     html_titre = """ 
     <div style="padding: 13px; background-color: #5f9ea0; border: 5px solid #e5e5e5; border-radius: 10px;">
     <h1 style="color:white; text-align: center;">🤖 Affichage Interactif Des Données 🤖<small><br> Powered by EMERALD SECURITIES SERVICES </small></h1></h1>
-    </div> <br><br><br>
-    """
+    </div> <br><br><br>"""
     
-    st.markdown(html_titre, unsafe_allow_html = True)
-    selected_dataset = st.selectbox('Sélectionner le dataset à afficher', ('BocFinalAction', 'BocFinalOBLIGActions'))
+    st.markdown(html_titre, unsafe_allow_html=True)
 
-    if selected_dataset == 'BocFinalAction':
-        selected_data = load_data('BocFinalAction.csv')
-    elif selected_dataset == 'BocFinalOBLIGActions':
-        selected_data = load_data('BocFinalOBLIGActions.csv')
+    csv_files = get_csv_files()  # Obtient la liste des fichiers CSV disponibles
+
+    selected_dataset = st.selectbox('Sélectionner le dataset à afficher', csv_files)
+
+    selected_data = load_data(selected_dataset)
 
     selected_column = st.selectbox('Sélectionner une colonne', selected_data.columns)
     start_date = st.date_input('Date de début')
@@ -290,6 +285,24 @@ def main():
     filtered_data = process_data(selected_data, selected_column, start_date, end_date)
 
     display_closing_prices(filtered_data)
+
+
+def get_csv_files():
+    csv_files = []
+    for file in os.listdir():
+        if file.endswith('.csv'):
+            csv_files.append(file)
+    return csv_files
+
+
+def load_data(file_path):
+    return pd.read_csv(file_path)
+
+
+def process_data(data, selected_column, start_date, end_date):
+    # Logique de traitement des données
+    filtered_data = data  # Exemple: données non traitées
+    return filtered_data
 
 
 ######################## #####################################################################################################################################################################################################################################################
