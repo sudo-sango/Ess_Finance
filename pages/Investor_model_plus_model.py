@@ -278,15 +278,15 @@ def calculer_profil_investisseur(reponses):
 
 def envoyer_donnees_bdd(reponses):
     cnx = mysql.connector.connect(
-        host="localhost",
+        host="34.30.119.170",
         user="root",
-        password="",
-        database="testoo"
+        password="essfinancepassword006@",
+        database="essfinancedatabase"
     )
 
     cursor = cnx.cursor()
 
-    requete = "INSERT INTO testaa (`{}`) VALUES ({})".format(
+    requete = "INSERT INTO essfinancetable (`{}`) VALUES ({})".format(
         "`, `".join(reponses.keys()),
         ", ".join(["%s"] * len(reponses))
     )
